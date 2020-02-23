@@ -1,12 +1,10 @@
 $(function(){
   $("#doughnutChart").drawDoughnutChart([
-    { title: "Extreme Left", value : 35, color: "#0066CC" },
-    { title: "Left", value:  20,   color: "#0099ff" },
-    { title: "Slight Left",      value:  76,   color: "#99ccff" },
-    { title: "Neutral",        value : 59,   color: "#ffffcc" },
-    { title: "Slight Right",        value : 41,   color: "#ff9999"    },
-     { title: "Right",        value : 45,   color: "#ff6666" },
-    { title: "Far Right",        value : 22,   color: "#cc0000" }
+    { title: "Left", value:  vals[0],   color: "#0099ff" },
+    { title: "Moderate Left",      value:  vals[1],   color: "#99ccff" },
+    { title: "Neutral",        value : vals[2],   color: "#ffffcc" },
+    { title: "Moderate Right",        value : vals[3],   color: "#ff9999"    },
+     { title: "Right",        value : vals[4],   color: "#ff6666" },
   ]);
 });
 /*!

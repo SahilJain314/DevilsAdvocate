@@ -17,7 +17,7 @@ $(function(){
  * Copyright 2014 hiro
  * https://github.com/githiro/drawDoughnutChart
  * Released under the MIT license.
- * 
+ *
  */
 ;(function($, undefined) {
   $.fn.drawDoughnutChart = function(data, options) {
@@ -105,7 +105,7 @@ $(function(){
     var summarySize = (cutoutRadius - (doughnutRadius - cutoutRadius)) * 2,
         $summary = $('<div class="' + settings.summaryClass + '" />')
                    .appendTo($this)
-                   .css({ 
+                   .css({
                      width: summarySize + "px",
                      height: summarySize + "px",
                      "margin-left": -(summarySize / 2) + "px",
