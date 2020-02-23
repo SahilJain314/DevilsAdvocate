@@ -7,10 +7,15 @@ import json
 
 def get(url = 'https://www.politico.com/news/2020/02/21/bernie-sanders-condemns-russian-116640'):
 
-    article = Article(url)
+
 #    characteristics = ['Location', 'Event', 'Person', 'Organization']
-    article.download()
-    article.parse()
+    try:
+        article = Article(url)
+        article.download()
+        article.parse()
+    except:
+        return {}
+
     text = article.title
     date = article.publish_date
     days_to_subtract = 2

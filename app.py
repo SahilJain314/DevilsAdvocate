@@ -3,6 +3,9 @@ from flask import request, jsonify
 import similar_articles
 import json
 import tldextract
+import tfPred
+from newspaper import fulltext
+import requests
 
 
 with open('linkToName.json', 'r') as f:
@@ -38,23 +41,40 @@ def api_id():
 
 def get_bias(url):
     info = tldextract.extract(url)
-    print(info.registered_domain)
+
+    print(url)
+
     try:
-        bias = name_to_stats[link_to_name[info.registered_domain]]["bias"]
-        if(bias >= 25):
-            bias_desc = 'Extreme Right'
-        elif(bias >= 10):
-            bias_desc = 'Right'
-        elif(bias > 3):
-            bias_desc = 'Slight Right'
-        elif(bias <= -25):
-            bias_desc = 'Far Left'
-        elif(bias <= -10):
-            bias_desc = 'Left'
-        elif(bias < -3):
-            bias_desc = 'Slight Left'
+        html = requests.get(url).text
+        text = fulltext(html)
+
+        bias = tfPred.getDeepBias(text)
+        b_dir = bias.argmax()
+        b_mag = bias[b_dir]
+        print(bias)
+        bias = b_mag
+
+    except:
+        b_dir = 1
+        bias = .5
+
+    #print(info.registered_domain)
+    try:
+        #bias = name_to_stats[link_to_name[info.registered_domain]]["bias"]
+        if b_dir is 1:
+            if bias <.6:
+                bias_desc = 'Neutral'
+            elif(bias <.75):
+                bias_desc = 'Moderate Right'
+            else:
+                bias_desc = 'Right'
         else:
-            bias_desc = 'Neutral'
+            if bias <.6:
+                bias_desc = 'Neutral'
+            elif(bias <.75):
+                bias_desc = 'Moderate Left'
+            else:
+                bias_desc = 'Left'
     except KeyError:
         bias_desc = 'Neutral'
     return bias_desc
