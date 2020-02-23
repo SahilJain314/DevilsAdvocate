@@ -23,6 +23,14 @@ def home():
     return '''<h1>Political Bias API</h1>
 <p>A prototype API for detecting political bias of text.</p>'''
 
+@app.route('/vals.json', methods=['GET'])
+def vals():
+    with open('vals.json', 'r') as f:
+        vals = json.load(f)['vals']
+    return jsonify({
+        "vals": vals
+    })
+
 @app.route('/api/bias/', methods=['GET'])
 def api_id():
 
@@ -44,7 +52,7 @@ def api_id():
         else:
             n = 5
 
-
+        """
         f = open('C:/Users/sahil/Desktop/Files/Coding/PalyHacks-DevilsAdvocate/DevilsAdvocate/svg-doughnut-chart-with-animation-and-tooltip/dist/vals.js', 'r')    # pass an appropriate path of the required file
         lines = f.readlines()
         lines[n-1] = str(int(lines[n].split(',')[0]) + 1) + ",\n"  # n is the line number you want to edit; subtract 1 as indexing of list starts from 0
@@ -54,7 +62,14 @@ def api_id():
         f.writelines(lines)
         # do the remaining operations on the file
         f.close()
+        """
+        with open('vals.json', 'r') as f:
+            vals = json.load(f)['vals']
 
+        vals[n - 1] = vals[n - 1] + 1
+
+        with open('vals.json', 'w') as f:
+            json.dump({"vals": vals}, f);
 
         try:
             all_articles = similar_articles.get(url)["articles"]
