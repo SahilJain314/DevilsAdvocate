@@ -57,6 +57,6 @@ def get_bias(url):
             bias_desc = 'Neutral'
     except KeyError:
         bias_desc = 'Neutral'
-
+    return bias_desc
 
 app.run()
