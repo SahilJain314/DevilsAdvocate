@@ -1,0 +1,14 @@
+{
+  "name": "Devil's Advocate",
+  "description": "play devil's advocate",
+  "version": "1.0",
+  "permissions": [
+    "activeTab", "tabs", "http://127.0.0.1:5000/*"
+  ],
+  "browser_action": {
+      "default_title": "Check Bias.",
+      "default_icon": "icon.png",
+      "default_popup": "popup.html"
+  },
+  "manifest_version": 2
+}
